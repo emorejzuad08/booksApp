@@ -6,7 +6,7 @@ import ejsMate from "ejs-mate";
 
 const app = express();
 const port = 3021;
-const API_URL_SEARCH = "https://openlibrary.org/search.json?q="
+const API_URL_SEARCH = "https://openlibrary.org/search.json?limit=10&q="
 const API_URL_COVER = "https://covers.openlibrary.org/b/isbn/" // + isbnID + "-M.jpg" - to display medium size picture
 
 // initialize middlewares
@@ -17,6 +17,23 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
     res.render("index.ejs");
 })
+
+app.get("/submit", (req, res) => {
+    res.redirect("/");
+})
+
+app.post("/submit", async (req, res) => {
+    const searchQuery = req.body["searchQuery"];
+
+    try {
+        const response = await axios.get(API_URL_SEARCH + searchQuery);
+        const data = response.data.docs;
+        console.log(data[0].title);
+        res.render("index.ejs", { data });
+    } catch (error) {
+        res.status(404).send(error.message);
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
