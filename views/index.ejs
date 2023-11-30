@@ -1,7 +1,4 @@
-<% layout('/layouts/boilerplate.ejs') %> <% if(locals.data) { %> <% for(let
-result of data) {%>
-<div class="row"><p><%= result.title %></p></div>
-<% } %> <% } %>
+<% layout('/layouts/boilerplate.ejs') %>
 
 <div class="row">
   <div class="col-6 offset-3">
@@ -29,17 +26,26 @@ result of data) {%>
   </div>
 </div>
 
+<% for(let result of data) { %> <% if(result.title !== '') {%>
 <div class="row d-flex justify-content-center">
-  <div class="col-6 offset-3">
-    <div class="card" style="width: 18rem">
+  <div class="col-md-6 d-flex justify-content-center">
+    <div class="card" style="width: 25rem">
+      <% if(result.cover_edition_key !== undefined){ %>
       <img
-        src="https://covers.openlibrary.org/b/isbn/9780385533225-M.jpg"
+        src="https://covers.openlibrary.org/b/olid/<%= result.cover_edition_key %>-M.jpg"
         class="card-img-top"
-        alt="..."
+        alt="No Available Picture"
       />
+      <% } else {%>
+      <img
+        src="https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
+        alt=""
+      />
+      <% }%>
       <div class="card-body">
-        <h5 class="card-title">The Particular Sadness of Lemon Cake</h5>
-        <p class="card-text">Aimee Bender</p>
+        <h5 class="card-title"><%= result.title %></h5>
+        <p class="card-text"><%= result.author_name %></p>
+        <p class="card-text"><%= result.first_publish_year %></p>
         <a href="#" class="btn btn-primary">Add to Collections</a>
       </div>
     </div>
@@ -47,41 +53,4 @@ result of data) {%>
 </div>
 
 <br />
-
-<div class="row d-flex justify-content-center">
-  <div class="col-6 offset-3">
-    <div class="card" style="width: 18rem">
-      <img
-        src="https://covers.openlibrary.org/b/isbn/9781603961813-M.jpg"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Rich Dad Poor Dad</h5>
-        <p class="card-text">Robert Kiyosaki</p>
-        <a href="#" class="btn btn-primary">Add to Collections</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<br />
-
-<div class="row d-flex justify-content-center">
-  <div class="col-6 offset-3">
-    <div class="card" style="width: 18rem">
-      <img
-        src="https://covers.openlibrary.org/b/isbn/9781847941831-M.jpg"
-        class="card-img-top"
-        alt="..."
-      />
-      <div class="card-body">
-        <h5 class="card-title">Atomic Habits</h5>
-        <p class="card-text">James Clear</p>
-        <a href="#" class="btn btn-primary">Add to Collections</a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<br />
+<% } %> <% } %>

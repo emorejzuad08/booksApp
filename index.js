@@ -11,11 +11,17 @@ const API_URL_COVER = "https://covers.openlibrary.org/b/isbn/" // + isbnID + "-M
 
 // initialize middlewares
 app.engine('ejs', ejsMate);
-app.use(express.static("public"));
+/* app.use(express.static("public")); */
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/", (req, res) => {
-    res.render("index.ejs");
+    const data = [{
+        title: '',
+        first_publish_year: '',
+        isbn: [],
+        author_name: []
+    }];
+    res.render("index.ejs", { data });
 })
 
 app.get("/submit", (req, res) => {
@@ -28,7 +34,6 @@ app.post("/submit", async (req, res) => {
     try {
         const response = await axios.get(API_URL_SEARCH + searchQuery);
         const data = response.data.docs;
-        console.log(data[0].title);
         res.render("index.ejs", { data });
     } catch (error) {
         res.status(404).send(error.message);
