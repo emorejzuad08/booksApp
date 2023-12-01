@@ -40,6 +40,11 @@ app.post("/submit", async (req, res) => {
     }
 });
 
+app.post('/books/new', (req, res) => {
+    const book = req.body.book;
+    res.render('new.ejs', { book });
+})
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });

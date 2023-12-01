@@ -27,30 +27,77 @@
 </div>
 
 <% for(let result of data) { %> <% if(result.title !== '') {%>
-<div class="row d-flex justify-content-center">
-  <div class="col-md-6 d-flex justify-content-center">
-    <div class="card" style="width: 25rem">
-      <% if(result.cover_edition_key !== undefined){ %>
-      <img
-        src="https://covers.openlibrary.org/b/olid/<%= result.cover_edition_key %>-M.jpg"
-        class="card-img-top"
-        alt="No Available Picture"
-      />
-      <% } else {%>
-      <img
-        src="https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
-        alt=""
-      />
-      <% }%>
-      <div class="card-body">
-        <h5 class="card-title"><%= result.title %></h5>
-        <p class="card-text"><%= result.author_name %></p>
-        <p class="card-text"><%= result.first_publish_year %></p>
-        <a href="#" class="btn btn-primary">Add to Collections</a>
+<form action="/books/new" method="post">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 d-flex justify-content-center">
+      <div class="card" style="width: 22rem">
+        <% if(result.cover_edition_key !== undefined){ %>
+        <img
+          src="https://covers.openlibrary.org/b/olid/<%= result.cover_edition_key %>-M.jpg"
+          class="card-img-top"
+          alt="No Available Picture"
+        />
+        <input
+          class="form-control"
+          type="hidden"
+          id="img_url"
+          name="book[img_url]"
+          value="https://covers.openlibrary.org/b/olid/<%= result.cover_edition_key %>-M.jpg"
+          required
+        />
+        <% } else {%>
+        <img
+          src="https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
+          alt=""
+        />
+        <input
+          class="form-control"
+          type="hidden"
+          id="img_url"
+          name="book[img_url]"
+          value="https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
+          required
+        />
+        <% }%>
+        <div class="card-body">
+          <h5 class="card-title"><%= result.title %></h5>
+          <p class="card-text"><%= result.author_name %></p>
+          <p class="card-text"><%= result.first_publish_year %></p>
+          <input
+            class="form-control"
+            type="hidden"
+            id="title"
+            name="book[title]"
+            value="<%= result.title %>"
+            required
+          />
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="author_name"
+            name="book[author_name]"
+            value="<%= result.author_name %>"
+            required
+          />
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="title"
+            name="book[first_publish_year]"
+            value="<%= result.first_publish_year %>"
+            required
+          />
+
+          <button class="btn btn-primary" type="submit">
+            Add to Collections
+          </button>
+        </div>
       </div>
     </div>
   </div>
-</div>
+</form>
 
 <br />
 <% } %> <% } %>

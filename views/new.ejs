@@ -1,0 +1,122 @@
+<% layout('/layouts/boilerplate.ejs') %>
+
+<div class="row">
+  <div class="col-md-6 d-flex justify-content-center">
+    <div class="card" style="width: 22rem">
+      <img src="<%= book.img_url%>" alt="" />
+      <div class="card-body">
+        <h5 class="card-title"><%= book.title %></h5>
+        <p class="card-text"><%= book.author_name %></p>
+        <p class="card-text"><%= book.first_publish_year %></p>
+      </div>
+    </div>
+    <br />
+  </div>
+
+  <div class="col-md-6">
+    <h3 class="text-center">New Book</h3>
+    <form action="/campgrounds" method="POST" novalidate class="validated-form">
+      <div class="mb-3">
+        <label class="form-label" for="title">Title</label>
+        <input
+          class="form-control"
+          type="text"
+          id="title"
+          name="book[title]"
+          value="<%= book.title  %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="author_name">Author</label>
+        <input
+          class="form-control"
+          type="text"
+          id="author_name"
+          name="book[author_name]"
+          value="<%= book.author_name  %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="first_publish_year"
+          >First Publish Year</label
+        >
+        <input
+          class="form-control"
+          type="text"
+          id="first_publish_year"
+          name="book[first_publish_year]"
+          value="<%= book.first_publish_year  %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <input
+          class="form-control"
+          type="hidden"
+          id="img_url"
+          name="book[img_url]"
+          value="<%= book.img_url  %>"
+          required
+        />
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+      <div class="mb-3">
+        <label class="form-label" for="price">Rating</label>
+        <div class="input-group">
+          <span class="input-group-text" id="rating"
+            ><svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="16"
+              height="16"
+              fill="currentColor"
+              class="bi bi-star-half"
+              viewBox="0 0 16 16"
+            >
+              <path
+                d="M5.354 5.119 7.538.792A.516.516 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.537.537 0 0 1 16 6.32a.548.548 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.52.52 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.58.58 0 0 1 .085-.302.513.513 0 0 1 .37-.245l4.898-.696zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.565.565 0 0 1 .162-.505l2.907-2.77-4.052-.576a.525.525 0 0 1-.393-.288L8.001 2.223 8 2.226v9.8z"
+              /></svg
+          ></span>
+          <input
+            id="rating"
+            type="number"
+            class="form-control"
+            placeholder="1 to 10"
+            min="1"
+            max="10"
+            aria-label="rating"
+            aria-describedby="rating-label"
+            name="book[rating]"
+            required
+          />
+        </div>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="notes">Notes</label>
+        <textarea
+          class="form-control"
+          name="book[notes]"
+          id="notes"
+          cols="30"
+          rows="3"
+          required
+        ></textarea>
+        <div class="valid-feedback">Looks good!</div>
+      </div>
+
+      <div class="mb-3">
+        <button class="btn btn-success">Add Book</button>
+        <a href="/" class="btn btn-warning">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
