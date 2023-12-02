@@ -8,7 +8,7 @@
           type="text"
           name="searchQuery"
           class="form-control"
-          placeholder="Input Author/Title"
+          placeholder="Search by Author/Title"
           aria-label="Recipient's username"
           aria-describedby="button-addon2"
           autocomplete="off"
@@ -36,6 +36,7 @@
           src="https://covers.openlibrary.org/b/olid/<%= result.cover_edition_key %>-M.jpg"
           class="card-img-top"
           alt="No Available Picture"
+          height="430"
         />
         <input
           class="form-control"
@@ -49,6 +50,7 @@
         <img
           src="https://t3.ftcdn.net/jpg/04/62/93/66/360_F_462936689_BpEEcxfgMuYPfTaIAOC1tCDurmsno7Sp.jpg"
           alt=""
+          height="430"
         />
         <input
           class="form-control"
@@ -87,6 +89,15 @@
             id="title"
             name="book[first_publish_year]"
             value="<%= result.first_publish_year %>"
+            required
+          />
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="searchQuery"
+            name="book[searchQuery]"
+            value="<%= searchQuery %>"
             required
           />
 

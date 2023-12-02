@@ -34,13 +34,17 @@ app.post("/submit", async (req, res) => {
     try {
         const response = await axios.get(API_URL_SEARCH + searchQuery);
         const data = response.data.docs;
-        res.render("index.ejs", { data });
+        res.render("index.ejs", { data, searchQuery });
     } catch (error) {
         res.status(404).send(error.message);
     }
 });
 
-app.post('/books/new', (req, res) => {
+app.post("/books", (req, res) => {
+    res.send("form submitted!");
+})
+
+app.post("/books/new", (req, res) => {
     const book = req.body.book;
     res.render('new.ejs', { book });
 })

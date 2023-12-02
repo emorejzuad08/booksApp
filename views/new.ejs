@@ -1,58 +1,62 @@
 <% layout('/layouts/boilerplate.ejs') %>
 
-<div class="row">
+<div class="row mb-3">
   <div class="col-md-6 d-flex justify-content-center">
     <div class="card" style="width: 22rem">
-      <img src="<%= book.img_url%>" alt="" />
+      <img src="<%= book.img_url%>" alt="" height="430"/>
       <div class="card-body">
         <h5 class="card-title"><%= book.title %></h5>
         <p class="card-text"><%= book.author_name %></p>
         <p class="card-text"><%= book.first_publish_year %></p>
       </div>
     </div>
-    <br />
   </div>
 
   <div class="col-md-6">
+    <br />
     <h3 class="text-center">New Book</h3>
-    <form action="/campgrounds" method="POST" novalidate class="validated-form">
+
+    <form action="/books" method="POST" novalidate class="validated-form">
       <div class="mb-3">
-        <label class="form-label" for="title">Title</label>
+        <!-- <label class="form-label" for="title">Title</label> -->
         <input
           class="form-control"
-          type="text"
+          type="hidden"
           id="title"
           name="book[title]"
           value="<%= book.title  %>"
           required
+          readonly
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="author_name">Author</label>
+        <!-- <label class="form-label" for="author_name">Author</label> -->
         <input
           class="form-control"
-          type="text"
+          type="hidden"
           id="author_name"
           name="book[author_name]"
           value="<%= book.author_name  %>"
           required
+          readonly
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
 
       <div class="mb-3">
-        <label class="form-label" for="first_publish_year"
+        <!-- <label class="form-label" for="first_publish_year"
           >First Publish Year</label
-        >
+        > -->
         <input
           class="form-control"
-          type="text"
+          type="hidden"
           id="first_publish_year"
           name="book[first_publish_year]"
           value="<%= book.first_publish_year  %>"
           required
+          readonly
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
@@ -65,9 +69,16 @@
           name="book[img_url]"
           value="<%= book.img_url  %>"
           required
+          readonly
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
+
+      <div class="mb-3">
+        <label class="form-label" for="readDate">Read Date</label>
+        <input id="readDate" class="form-control" type="date" / autofocus>
+      </div>
+
       <div class="mb-3">
         <label class="form-label" for="price">Rating</label>
         <div class="input-group">
@@ -112,11 +123,24 @@
         ></textarea>
         <div class="valid-feedback">Looks good!</div>
       </div>
-
-      <div class="mb-3">
-        <button class="btn btn-success">Add Book</button>
-        <a href="/" class="btn btn-warning">Cancel</a>
-      </div>
+    
+    <div class="mb-3 d-flex justify-content-left gap-2">
+      <button class="btn btn-success" type="submit">Add</button>
     </form>
+      <form action="/submit" method="post">
+        <input
+          type="hidden"
+          name="searchQuery"
+          class="form-control"
+          placeholder="Search by Author/Title"
+          aria-label="Recipient's username"
+          aria-describedby="button-addon2"
+          autocomplete="off"
+          value="<%= book.searchQuery  %>"
+          autofocus
+        />
+        <button class="btn btn-warning" type="submit">Cancel</button>
+      </form>
+    </div>
   </div>
 </div>
