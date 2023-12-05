@@ -1,0 +1,48 @@
+<% layout('/layouts/boilerplate.ejs') %>
+<div class="row">
+  <div class="col-6 offset-3">
+    <form action="/submit" method="post">
+      <div class="input-group mb-3">
+        <select class="form-select" aria-label="Default select example">
+          <option value="Title">Title</option>
+          <option value="Date">Date</option>
+          <option value="Rating">Rating</option>
+        </select>
+        <button
+          class="btn btn-outline-secondary"
+          type="submit"
+          id="button-addon2"
+        >
+          Sort
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<% for(let result of data) { %> <% if(result.title !== '') {%>
+<form action="/books/new" method="post">
+  <div class="row d-flex justify-content-center">
+    <div class="col-md-6 d-flex justify-content-center">
+      <div class="card" style="width: 22rem">
+        <img
+          src="<%= result.img_url %>"
+          class="card-img-top"
+          alt="No Available Picture"
+          height="430"
+        />
+
+        <div class="card-body">
+          <h5 class="card-title"><%= result.title %></h5>
+          <p class="card-text"><%= result.author %></p>
+          <p class="card-text"><%= result.first_publish_year %></p>
+
+          <button class="btn btn-warning" type="submit">Update</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+
+<br />
+<% } %> <% } %>

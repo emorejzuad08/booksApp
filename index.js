@@ -9,6 +9,15 @@ const port = 3021;
 const API_URL_SEARCH = "https://openlibrary.org/search.json?limit=10&q="
 const API_URL_COVER = "https://covers.openlibrary.org/b/isbn/" // + isbnID + "-M.jpg" - to display medium size picture
 
+const db = new pg.Client({
+    user: "postgres",
+    host: "localhost",
+    database: "books",
+    password: "mypassword",
+    port: 5432
+});
+db.connect();
+
 // initialize middlewares
 app.engine('ejs', ejsMate);
 /* app.use(express.static("public")); */
@@ -26,6 +35,13 @@ app.get("/", (req, res) => {
 
 app.get("/submit", (req, res) => {
     res.redirect("/");
+})
+
+app.get("/books", async (req, res) => {
+    const result = await db.query("SELECT * FROM collections");
+    const collections = result.rows;
+
+    res.render("collections.ejs", { data: collections });
 })
 
 app.post("/submit", async (req, res) => {
