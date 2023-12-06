@@ -56,8 +56,20 @@ app.post("/submit", async (req, res) => {
     }
 });
 
-app.post("/books", (req, res) => {
+app.post("/books", async (req, res) => {
     res.send("form submitted!");
+
+    const item = req.body.book.title;
+    console.log(item);
+    /* try {
+        await db.query(
+            "INSERT INTO items(title) VALUES($1)",
+            [item]
+        );
+    } catch (err) {
+        console.log(err);
+    }
+    res.redirect("/"); */
 })
 
 app.post("/books/new", (req, res) => {
