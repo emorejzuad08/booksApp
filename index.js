@@ -57,19 +57,24 @@ app.post("/submit", async (req, res) => {
 });
 
 app.post("/books", async (req, res) => {
-    res.send("form submitted!");
 
-    const item = req.body.book.title;
-    console.log(item);
-    /* try {
+    const title = req.body.book.title;
+    const author_name = req.body.book.author_name;
+    const first_publish_year = req.body.book.first_publish_year;
+    const img_url = req.body.book.img_url;
+    const rating = req.body.book.rating;
+    const notes = req.body.book.notes;
+    const readDate = req.body.book.readDate;
+
+    try {
         await db.query(
-            "INSERT INTO items(title) VALUES($1)",
-            [item]
+            "INSERT INTO collections(img_url,title,read_date,rating,notes,author,first_publish_year) VALUES($1,$2,$3,$4,$5,$6,$7)",
+            [img_url, title, readDate, rating, notes, author_name, first_publish_year]
         );
     } catch (err) {
         console.log(err);
     }
-    res.redirect("/"); */
+    res.redirect("/books");
 })
 
 app.post("/books/new", (req, res) => {

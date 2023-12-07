@@ -21,6 +21,7 @@
 </div>
 
 <% for(let result of data) { %> <% if(result.title !== '') {%>
+
 <form action="/books/new" method="post">
   <div class="row d-flex justify-content-center">
     <div class="col-md-6 d-flex justify-content-center">
@@ -36,13 +37,28 @@
           <h5 class="card-title"><%= result.title %></h5>
           <p class="card-text"><%= result.author %></p>
           <p class="card-text"><%= result.first_publish_year %></p>
-
-          <button class="btn btn-warning" type="submit">Update</button>
         </div>
       </div>
+    </div>
+
+    <div class="col-md-6">
+      <u><h1><%= result.title %></h1></u>
+      <small>
+        <p class="fw-light">DATE READ : <%= result.read_date %>.</p>
+
+        <p class="fw-light">
+          HOW I STRONGLY RECOMMEND IT: <%= result.rating %>/10
+        </p>
+      </small>
+      <br />
+
+      <p><%= result.notes %></p>
+      <button class="btn btn-warning" type="submit">Update</button>
+      <button class="btn btn-outline-secondary" type="submit">Remove</button>
     </div>
   </div>
 </form>
 
 <br />
+
 <% } %> <% } %>
