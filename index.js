@@ -38,8 +38,10 @@ app.get("/submit", (req, res) => {
 })
 
 app.get("/books", async (req, res) => {
-    const result = await db.query("SELECT * FROM collections");
+    const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections");
     const collections = result.rows;
+
+    console.log(collections);
 
     res.render("collections.ejs", { data: collections });
 })

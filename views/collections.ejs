@@ -81,7 +81,7 @@
       <u><h1><%= result.title %></h1></u>
       <input name="book[id]" type="hidden" value="<%= result.id %>" />
       <small>
-        <p class="fw-light">DATE READ : <%= result.read_date %>.</p>
+        <p class="fw-light">DATE READ : <%= result.formatted_date %>.</p>
 
         <p class="fw-light">
           HOW I STRONGLY RECOMMEND IT: <%= result.rating %>/10
@@ -93,10 +93,10 @@
 
       <input
       class="form-control"
-      type="hidden"
+      type="text"
       id="read_date"
       name="book[read_date]"
-      value="<%= result.read_date %>"
+      value="<%= result.formatted_date %>"
       required
     />
 
