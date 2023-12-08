@@ -22,8 +22,8 @@
 
 <% for(let result of data) { %> <% if(result.title !== '') {%>
 
-<form action="/books/new" method="post">
-  <div class="row d-flex justify-content-center">
+<form action="/books/update" method="post">
+  <div class="row d-flex justify-content-center">    
     <div class="col-md-6 d-flex justify-content-center">
       <div class="card" style="width: 22rem">
         <img
@@ -43,6 +43,7 @@
 
     <div class="col-md-6">
       <u><h1><%= result.title %></h1></u>
+      <input name="book[id]" type="hidden" value="<%= result.id %>" />
       <small>
         <p class="fw-light">DATE READ : <%= result.read_date %>.</p>
 
@@ -53,11 +54,17 @@
       <br />
 
       <p><%= result.notes %></p>
-      <button class="btn btn-warning" type="submit">Update</button>
-      <button class="btn btn-outline-secondary" type="submit">Remove</button>
+      <div class="mb-3 d-flex justify-content-left gap-2">
+         <button class="btn btn-warning" type="submit">Update</button>
+    </form>      
+         <form action="/books/delete" method="post">
+           <input name="book[id]" type="hidden" value="<%= result.id %>" />
+           <button class="btn btn-outline-secondary" type="submit">Remove</button>
+         </form>
+      </div>
     </div>
   </div>
-</form>
+
 
 <br />
 

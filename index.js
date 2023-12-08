@@ -82,6 +82,30 @@ app.post("/books/new", (req, res) => {
     res.render('new.ejs', { book });
 })
 
+app.post("/books/update", (req, res) => {
+    console.log("updated");
+    const book = req.body.book;
+    console.log(book);
+    /* res.render('update.ejs', { book }); */
+});
+
+app.post("/books/delete", async (req, res) => {
+    const book = req.body.book;
+    const id = book.id;
+
+    try {
+        await db.query(
+            "DELETE FROM collections WHERE id = $1",
+            [id]
+        );
+
+    } catch (err) {
+        console.log(err);
+    }
+    res.redirect("/books");
+
+});
+
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
 });
