@@ -30,7 +30,7 @@
         />
         <div class="valid-feedback">Looks good!</div>
       </div>
-
+      <input name="book[id]" type="hidden" value="<%= book.id %>" />
       <div class="mb-3">
         <!-- <label class="form-label" for="author_name">Author</label> -->
         <input
@@ -76,7 +76,7 @@
 
       <div class="mb-3">
         <label class="form-label" for="readDate">Read Date</label>
-        <input id="readDate" class="form-control" type="date" name="book[readDate]" value="<%= book.read_date.toISOString().split('T')[0] %>" / autofocus>
+        <input id="readDate" class="form-control" type="text" name="book[readDate]" value="<%= book.read_date %>" disabled/>
         
       </div>
 
@@ -108,6 +108,7 @@
             name="book[rating]"
             value="<%= book.rating %>"
             required
+            autofocus
           />
         </div>
         <div class="valid-feedback">Looks good!</div>

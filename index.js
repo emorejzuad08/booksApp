@@ -8,6 +8,7 @@ const app = express();
 const port = 3021;
 const API_URL_SEARCH = "https://openlibrary.org/search.json?limit=10&q="
 const API_URL_COVER = "https://covers.openlibrary.org/b/isbn/" // + isbnID + "-M.jpg" - to display medium size picture
+let sort_by = "title";
 
 const db = new pg.Client({
     user: "postgres",
@@ -38,12 +39,47 @@ app.get("/submit", (req, res) => {
 })
 
 app.get("/books", async (req, res) => {
-    const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections");
-    const collections = result.rows;
+    if (sort_by === "title") {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY title");
 
-    console.log(collections);
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    } else if (sort_by === "date") {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY read_date");
 
-    res.render("collections.ejs", { data: collections });
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    } else {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY rating desc");
+
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    }
+
+
+});
+
+app.post("/books/sort", async (req, res) => {
+    const sortBy = req.body.sort_by;
+    sort_by = sortBy;
+    /* sort_by = req.body.sort_by; */
+
+    if (sort_by === "title") {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY title");
+
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    } else if (sort_by === "date") {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY read_date");
+
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    } else {
+        const result = await db.query("SELECT *,TO_CHAR(CAST(read_date AS TIMESTAMP WITH TIME ZONE), 'MM/DD/YYYY') AS formatted_date FROM collections ORDER BY rating desc");
+
+        const collections = result.rows;
+        res.render("collections.ejs", { data: collections, sort_by: sort_by });
+    }
 })
 
 app.post("/submit", async (req, res) => {
@@ -106,6 +142,23 @@ app.post("/books/delete", async (req, res) => {
     res.redirect("/books");
 
 });
+
+app.post("/books/save", async (req, res) => {
+    const rating = req.body.book.rating;
+    const notes = req.body.book.notes;
+    const id = req.body.book.id;
+
+    try {
+        await db.query(
+            "UPDATE collections SET rating = $2,notes = $3 WHERE  id = $1",
+            [id, rating, notes]
+        );
+
+    } catch (err) {
+        console.log(err);
+    }
+    res.redirect("/books");
+})
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);

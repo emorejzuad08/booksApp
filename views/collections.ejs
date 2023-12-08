@@ -1,12 +1,27 @@
 <% layout('/layouts/boilerplate.ejs') %>
 <div class="row">
   <div class="col-6 offset-3">
-    <form action="/submit" method="post">
+    <form action="/books/sort" method="post">
       <div class="input-group mb-3">
-        <select class="form-select" aria-label="Default select example">
-          <option value="Title">Title</option>
-          <option value="Date">Date</option>
-          <option value="Rating">Rating</option>
+        <select class="form-select" aria-label="Default select example" name="sort_by">
+          <% if(sort_by === 'title') {%>
+            <option value="title" selected>Title</option>
+          <% } else{ %>
+            <option value="title">Title</option>          
+          <% } %>
+
+          <% if(sort_by === 'date') {%>
+            <option value="date" selected>Date</option>
+          <% } else{ %>
+             <option value="date">Date</option>          
+          <% } %>     
+
+          <% if(sort_by === 'rating') {%>
+            <option value="rating" selected>Rating</option>
+          <% } else{ %>
+            <option value="rating">Rating</option>          
+          <% } %>                                         
+          
         </select>
         <button
           class="btn btn-outline-secondary"
@@ -61,7 +76,7 @@
             type="hidden"
             id="author_name"
             name="book[author_name]"
-            value="<%= result.author_name %>"
+            value="<%= result.author %>"
             required
           />
 
@@ -93,10 +108,10 @@
 
       <input
       class="form-control"
-      type="text"
+      type="hidden"
       id="read_date"
       name="book[read_date]"
-      value="<%= result.formatted_date %>"
+      value="<%= result.read_date.toLocaleDateString('el-GR') %>"
       required
     />
 
