@@ -83,10 +83,9 @@ app.post("/books/new", (req, res) => {
 })
 
 app.post("/books/update", (req, res) => {
-    console.log("updated");
     const book = req.body.book;
     console.log(book);
-    /* res.render('update.ejs', { book }); */
+    res.render('update.ejs', { book });
 });
 
 app.post("/books/delete", async (req, res) => {

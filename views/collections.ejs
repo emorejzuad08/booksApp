@@ -32,11 +32,47 @@
           alt="No Available Picture"
           height="430"
         />
+        <input
+        class="form-control"
+        type="hidden"
+        id="img_url"
+        name="book[img_url]"
+        value="<%= result.img_url %>"
+        required
+      />
+
 
         <div class="card-body">
           <h5 class="card-title"><%= result.title %></h5>
           <p class="card-text"><%= result.author %></p>
           <p class="card-text"><%= result.first_publish_year %></p>
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="title"
+            name="book[title]"
+            value="<%= result.title %>"
+            required
+          />
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="author_name"
+            name="book[author_name]"
+            value="<%= result.author_name %>"
+            required
+          />
+
+          <input
+            class="form-control"
+            type="hidden"
+            id="title"
+            name="book[first_publish_year]"
+            value="<%= result.first_publish_year %>"
+            required
+          />
         </div>
       </div>
     </div>
@@ -54,6 +90,33 @@
       <br />
 
       <p><%= result.notes %></p>
+
+      <input
+      class="form-control"
+      type="hidden"
+      id="read_date"
+      name="book[read_date]"
+      value="<%= result.read_date %>"
+      required
+    />
+
+    <input
+      class="form-control"
+      type="hidden"
+      id="rating"
+      name="book[rating]"
+      value="<%= result.rating %>"
+      required
+    />
+
+    <input
+      class="form-control"
+      type="hidden"
+      id="notes"
+      name="book[notes]"
+      value="<%= result.notes %>"
+      required
+    />
       <div class="mb-3 d-flex justify-content-left gap-2">
          <button class="btn btn-warning" type="submit">Update</button>
     </form>      
